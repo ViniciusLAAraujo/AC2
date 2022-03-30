@@ -1,0 +1,104 @@
+int ledRed = 13;
+int ledYellow = 12;
+int ledGreen = 11;
+int ledBlue = 10;
+bool a = 0;
+bool b = 0;
+bool s = 0;
+bool cout = 0;
+int op = 0;
+int entrada = 0;
+
+
+void setup() {
+        Serial.begin(9600);     
+        pinMode(ledRed,OUTPUT);
+  		pinMode(ledYellow,OUTPUT);
+		pinMode(ledGreen,OUTPUT);
+ 		pinMode(ledBlue,OUTPUT);
+        }
+
+void loop() {
+  
+   if (Serial.available() > 0) 
+        {
+      entrada = Serial.parseInt();
+      Serial.println(entrada);
+     op=entrada%10;
+     entrada=entrada/10;
+     b=entrada%10;
+     if(b==false){
+       digitalWrite (ledYellow,LOW);
+     }
+     else{
+       digitalWrite (ledYellow,HIGH);
+     }
+     entrada=entrada/10;
+     a=entrada;
+     if(a==false){
+        digitalWrite (ledRed,LOW);
+     }
+     else{
+        digitalWrite (ledRed,HIGH);
+     }
+     
+     switch (op)
+    {
+    case 0:
+       s = a&b;
+        if(s==false){
+        digitalWrite (ledGreen,LOW);
+        digitalWrite (ledBlue,LOW);
+     }
+     else{
+        digitalWrite (ledGreen,HIGH);
+       digitalWrite (ledBlue,LOW);
+     }
+        break;
+     
+     case 1:
+       s = a|b;
+        if(s==false){
+        digitalWrite (ledGreen,LOW);
+        digitalWrite (ledBlue,LOW);
+     }
+     else{
+        digitalWrite (ledGreen,HIGH);
+       digitalWrite (ledBlue,LOW);
+     }
+        break;
+     
+     case 2:
+       s = !a;
+        if(s==false){
+        digitalWrite (ledGreen,LOW);
+        digitalWrite (ledBlue,LOW);
+     }
+     else{
+        digitalWrite (ledGreen,HIGH);
+       digitalWrite (ledBlue,LOW);
+     }
+        break;
+       case 3:
+   s = a^b;
+   cout= a&b;
+        if(s==false){
+        digitalWrite (ledGreen,LOW);
+     }
+     else{
+        digitalWrite (ledGreen,HIGH);
+     }
+       if(cout==false){
+       digitalWrite (ledBlue,LOW);
+     }
+     else{
+       digitalWrite (ledBlue,HIGH);
+     }
+        break;
+    
+    default:
+        break;
+    }
+         
+         }
+}  

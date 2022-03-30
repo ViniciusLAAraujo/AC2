@@ -1,0 +1,78 @@
+int ledRed = 13;
+int ledYellow = 12;
+int ledGreen = 11;
+int ledBlue = 10;
+int sec=0;
+int status=0;
+
+
+void setup() {
+        Serial.begin(9600);     
+        pinMode(ledRed,OUTPUT);
+  		pinMode(ledYellow,OUTPUT);
+		pinMode(ledGreen,OUTPUT);
+ 		pinMode(ledBlue,OUTPUT);
+  		digitalWrite (ledBlue,HIGH);
+        }
+
+void loop() {
+  
+  
+   switch (status)
+    {
+    case 0:
+     Serial.println("Caso 1");
+  digitalWrite (ledRed,HIGH);
+  digitalWrite (ledYellow,LOW);
+  digitalWrite (ledGreen,LOW);
+    
+  delay(800);
+   digitalWrite (ledBlue,LOW);
+  delay(200);
+  digitalWrite (ledBlue,HIGH);
+  sec++;
+  if (sec==3){
+    status=1;
+  } 
+      Serial.println(sec);
+      Serial.println(status);
+        break;
+     
+     case 1:
+  digitalWrite (ledGreen,HIGH);
+  digitalWrite (ledYellow,LOW);
+  digitalWrite (ledRed,LOW);
+  
+  delay(800);
+   digitalWrite (ledBlue,LOW);
+  delay(200);
+  digitalWrite (ledBlue,HIGH);
+  sec++;
+  if (sec==7){
+    status=2;
+  }
+        break;
+     
+     case 2:
+  digitalWrite (ledYellow,HIGH);
+  digitalWrite (ledRed,LOW);
+  digitalWrite (ledGreen,LOW);
+  
+   delay(800);
+  digitalWrite (ledBlue,LOW);
+  delay(200);
+  digitalWrite (ledBlue,HIGH);
+  sec++;
+  if (sec==9){
+    status=0;
+    sec=0;
+  }
+        break;
+    
+    default:
+        break;
+    }
+
+}  
+
+
