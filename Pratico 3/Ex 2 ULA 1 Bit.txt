@@ -2,10 +2,14 @@ int ledRed = 13;
 int ledYellow = 12;
 int ledGreen = 11;
 int ledBlue = 10;
+int ledGrey = 9;
+int ledOrange=8;
 bool a = 0;
 bool b = 0;
 bool s = 0;
+bool cin = 0;
 bool cout = 0;
+bool binvert =0;
 int op = 0;
 int entrada = 0;
 
@@ -16,6 +20,8 @@ void setup() {
   		pinMode(ledYellow,OUTPUT);
 		pinMode(ledGreen,OUTPUT);
  		pinMode(ledBlue,OUTPUT);
+        pinMode(ledGrey,OUTPUT);
+        pinMode(ledOrange,OUTPUT);
         }
 
 void loop() {
@@ -27,19 +33,36 @@ void loop() {
      op=entrada%10;
      entrada=entrada/10;
      b=entrada%10;
+     entrada=entrada/10;
+     a=entrada%10;
+     entrada=entrada/10;
+     cin=entrada%10;
+     entrada=entrada/10;
+     binvert=entrada;
      if(b==false){
        digitalWrite (ledYellow,LOW);
      }
      else{
        digitalWrite (ledYellow,HIGH);
      }
-     entrada=entrada/10;
-     a=entrada;
+   
      if(a==false){
         digitalWrite (ledRed,LOW);
      }
      else{
         digitalWrite (ledRed,HIGH);
+     }
+     if(cin==false){
+        digitalWrite (ledGrey,LOW);
+     }
+     else{
+        digitalWrite (ledGrey,HIGH);
+     }
+     if(binvert==false){
+        digitalWrite (ledOrange,LOW);
+     }
+     else{
+        digitalWrite (ledOrange,HIGH);
      }
      
      switch (op)
@@ -80,8 +103,11 @@ void loop() {
      }
         break;
        case 3:
-   s = a^b;
-   cout= a&b;
+   if(binvert==true){
+         b=!b;
+       }
+   s = a^b^cin;
+   cout= (a&b)|((a^b)&cin);
         if(s==false){
         digitalWrite (ledGreen,LOW);
      }
@@ -101,4 +127,5 @@ void loop() {
     }
          
          }
+ 
 }  
